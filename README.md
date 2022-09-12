@@ -1,5 +1,5 @@
 # kotlin-lambda-graalvm-example
-Kotlin GraalVM experiments
+Kotlin Lambda GraalVM Example
 
 ## Deployment
 ```

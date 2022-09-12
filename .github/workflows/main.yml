@@ -1,0 +1,12 @@
+name: Kotlin Lambda GraalVM Example CI/CD
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  call-workflow-build-deploy:
+    uses: ./.github/workflows/workflow-build-deploy.yml
+    with:
+      target_account: "xxx"
