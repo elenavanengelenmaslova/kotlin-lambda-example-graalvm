@@ -30,7 +30,7 @@ export class InfrastructureStack extends Stack {
       code: lambda.Code.fromAsset('../software/',
         {
           bundling: {
-            image: DockerImage.fromRegistry("marksailes/al2-graalvm:al2-21.2.0"),
+            image: DockerImage.fromRegistry("marksailes/al2-graalvm:17-22.2.0"),
             volumes: [{
               hostPath: process.env.HOME + "/.m2/",
               containerPath: "/root/.m2/"

@@ -12,22 +12,16 @@ env:
   DEPLOY_TARGET_ACCOUNT: ${{ inputs.target_account }}
 
 jobs:
-  deploy-app:
+  build-x86-app:
     runs-on: ubuntu-latest
     name: Kotlin GraalVM deployment
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: "11"
-          distribution: "adopt"
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
 
       - name: Build with Maven
-        run: mvn clean install --file software/products/pom.xml
+        run: mvn clean install --file software/products/pom.xml -P native-image
 
 #      - name: DEPLOY synthesize & deploy
 #        run: |

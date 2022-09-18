@@ -9,3 +9,4 @@ cdk.out
 /.idea/
 /software/products/target/
 /kotlin-lambda-example-graalvm.iml
+/software/products/products.iml
