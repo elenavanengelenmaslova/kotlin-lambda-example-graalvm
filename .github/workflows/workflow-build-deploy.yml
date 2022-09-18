@@ -55,4 +55,4 @@ jobs:
 #          cd ${GITHUB_WORKSPACE}/infrastructure
 #          npm install
 #          npm run build
-#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
+#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
