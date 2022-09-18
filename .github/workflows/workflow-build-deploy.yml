@@ -14,7 +14,7 @@ env:
 jobs:
   build-x86-app:
     runs-on: ubuntu-latest
-    name: Kotlin GraalVM deployment
+    name: Kotlin GraalVM build
 
     steps:
       - uses: actions/checkout@v2
@@ -33,3 +33,26 @@ jobs:
 #          npm install
 #          npm run build
 #          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
+
+  build-arm64-app:
+    runs-on: self-hosted
+    name: Kotlin GraalVM ARM64 build
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: stCarolas/setup-maven@v4.4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
+
+      - name: Build with Maven
+        run: mvn clean install --file software/products-arm64/pom.xml -P native-image
+
+#      - name: DEPLOY synthesize & deploy
+#        run: |
+#          cd ${GITHUB_WORKSPACE}/infrastructure
+#          npm install
+#          npm run build
+#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
