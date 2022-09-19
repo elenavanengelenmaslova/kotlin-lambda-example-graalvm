@@ -10,4 +10,3 @@ cdk.out
 /software/products/target/
 /kotlin-lambda-example-graalvm.iml
 /software/products/products.iml
-/software/products-arm64/products-arm64.iml
