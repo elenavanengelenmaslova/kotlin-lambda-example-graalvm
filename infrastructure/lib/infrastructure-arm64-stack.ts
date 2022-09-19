@@ -39,9 +39,9 @@ export class InfrastructureARM64Stack extends Stack {
             user: "root",
             outputType: BundlingOutput.ARCHIVED,
             command: ["-c",
-              "cd products-arm64 " +
+              "cd products " +
               "&& mvn clean install -P native-image "
-              + "&& cp /asset-input/products-arm64/target/function.zip /asset-output/"]
+              + "&& cp /asset-input/products/target/function.zip /asset-output/"]
           }
         }),
       architecture: Architecture.ARM_64,
