@@ -19,7 +19,7 @@ const stack = new InfrastructureX86Stack(app, stackName, {
 });
 
 const stackNameARM64 = 'Kotlin-Lambda-GraalVM-ARM64-example';
-const stackARM64 = new InfrastructureARM64Stack(app, stackName, {
+const stackARM64 = new InfrastructureARM64Stack(app, stackNameARM64, {
   stackName: stackNameARM64,
   env: environmentSettings,
   description: 'Graal VM ARM64 example',
