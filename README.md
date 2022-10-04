@@ -8,18 +8,25 @@ To bundle the ARM64 lambda in CDK a GitHub self-hosted runner was used on Linux 
 mvn clean install --file software/products/pom.xml
 ```
 ### Set up CDK deployment
-If you have not set up CDK in tou account please run:
-```
-npx cdk bootstrap aws://${{ secrets.aws_account_id }}/${{ inputs.aws_region }}
-```
-Now deploy the app:
+
+Set up npm:
 ```
 cd ${GITHUB_WORKSPACE}/infrastructure
 npm install
 npm run build
+```
+
+If you have not set up CDK in you AWS account yet, please run (replace variables in brackets with actual values):
+```
+npx cdk bootstrap aws://[aws_account_id]/[aws_region]
+```
+
+Now deploy the app:
+```
 npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
 ```
-for ARM64 example replace last line with (needs ARM64 machine / self-hosted GitHub runner on ARM64):
+
+for ARM64 example replace the above line with (needs ARM64 machine / self-hosted GitHub runner on ARM64):
 ```
 npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
 ```
