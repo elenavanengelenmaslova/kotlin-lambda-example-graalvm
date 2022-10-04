@@ -50,6 +50,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/infrastructure
           npm install
           npm run build
+          cdk bootstrap aws://${{ secrets.aws_account_id }}/${{ inputs.aws_region }}
           npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 
 #  build-arm64-app:
