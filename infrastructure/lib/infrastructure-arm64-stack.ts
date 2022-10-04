@@ -11,6 +11,7 @@ import {
 } from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Architecture} from "aws-cdk-lib/aws-lambda";
+import * as os from 'os';
 
 export class InfrastructureARM64Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -33,7 +34,7 @@ export class InfrastructureARM64Stack extends Stack {
           bundling: {
             image: DockerImage.fromRegistry("marksailes/arm64-al2-graalvm:17-22.2.0"),
             volumes: [{
-              hostPath: process.env.HOME + "/.m2/",
+              hostPath: os.homedir() + "/.m2/",
               containerPath: "/root/.m2/"
             }],
             user: "root",
