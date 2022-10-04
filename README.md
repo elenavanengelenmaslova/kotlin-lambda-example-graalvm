@@ -25,7 +25,7 @@ npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
 ```
 
 ## Build & Deployment to AWS account from GitHub
-Set up the following secrets in your GitHub:
+Set up the following secrets in your GitHub project:
 ```
 AWS_ACCOUNT_ID
 AWS_ACCESS_KEY
