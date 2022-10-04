@@ -8,7 +8,8 @@ import {InfrastructureARM64Stack} from "../lib/infrastructure-arm64-stack";
 const app = new App();
 
 const account_id = process.env.DEPLOY_TARGET_ACCOUNT;
-const environmentSettings = {account: account_id, region: 'eu-west-1'};
+const region = process.env.DEPLOY_TARGET_REGION
+const environmentSettings = {account: account_id, region: region};
 
 const stackName = 'Kotlin-Lambda-GraalVM-example';
 const stack = new InfrastructureX86Stack(app, stackName, {

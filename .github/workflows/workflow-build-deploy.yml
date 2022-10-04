@@ -3,13 +3,21 @@ name: Standard build deploy workflow for Kotlin Lambda GraalVM example
 on:
   workflow_call:
     inputs:
-      target_account:
+      aws_region:
         required: true
         type: string
+    secrets:
+      aws_account_id:
+        required: true
+      aws_access_key:
+        required: true
+      aws_secret_key:
+        required: true
 
 env:
   # Supply target AWS account here
-  DEPLOY_TARGET_ACCOUNT: ${{ inputs.target_account }}
+  DEPLOY_TARGET_ACCOUNT: ${{ secrets.aws_account_id }}
+  DEPLOY_TARGET_REGION: ${{ inputs.aws_region }}
 
 jobs:
   build-x86-app:
@@ -27,28 +35,38 @@ jobs:
       - name: Build with Maven
         run: mvn clean install --file software/products/pom.xml -P native-image
 
-#      - name: DEPLOY synthesize & deploy
-#        run: |
-#          cd ${GITHUB_WORKSPACE}/infrastructure
-#          npm install
-#          npm run build
-#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
-
-  build-arm64-app:
-    runs-on: self-hosted
-    name: Kotlin GraalVM ARM64 build
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: stCarolas/setup-maven@v4.4
-      - uses: graalvm/setup-graalvm@v1
+      - uses: actions/setup-node@v2
         with:
-          version: 'latest'
-          java-version: '17'
-          components: 'native-image'
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key }}
+          aws-secret-access-key: ${{ secrets.aws_secret_key }}
+          aws-region: ${{ inputs.aws_region }}
 
-      - name: Build with Maven
-        run: mvn clean install --file software/products/pom.xml -P native-image
+      - name: DEPLOY synthesize & deploy
+        run: |
+          cd ${GITHUB_WORKSPACE}/infrastructure
+          npm install
+          npm run build
+          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
+
+#  build-arm64-app:
+#    runs-on: self-hosted
+#    name: Kotlin GraalVM ARM64 build
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: stCarolas/setup-maven@v4.4
+#      - uses: graalvm/setup-graalvm@v1
+#        with:
+#          version: 'latest'
+#          java-version: '17'
+#          components: 'native-image'
+#
+#      - name: Build with Maven
+#        run: mvn clean install --file software/products/pom.xml -P native-image
 
 #      - name: DEPLOY synthesize & deploy
 #        run: |
