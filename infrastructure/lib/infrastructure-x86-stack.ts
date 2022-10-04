@@ -4,26 +4,19 @@ import {
   aws_logs as logs,
   BundlingOutput,
   DockerImage,
-  Duration,
+  Duration, Fn,
   RemovalPolicy,
   Stack,
   StackProps
 } from 'aws-cdk-lib';
 import {Construct} from 'constructs';
+import * as os from 'os';
 
 export class InfrastructureX86Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-
-    const tableName = 'Products-GraalVM-Example';
-    const productsTable = new dynamodb.Table(this, id, {
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: RemovalPolicy.DESTROY,
-      partitionKey: {name: 'id', type: dynamodb.AttributeType.STRING},
-      pointInTimeRecovery: false,
-      tableName: tableName,
-    });
+    const productsTable = dynamodb.Table.fromTableArn(this, 'dynamoTable', Fn.importValue('Products-GraalVM-ExampleTableArn'));
     const graalVMNativeLambda = new lambda.Function(this, 'graalVMNativeLambdaExample', {
       description: 'Kotlin Lambda GraalVM Example',
       runtime: lambda.Runtime.PROVIDED_AL2,
@@ -32,7 +25,7 @@ export class InfrastructureX86Stack extends Stack {
           bundling: {
             image: DockerImage.fromRegistry("marksailes/al2-graalvm:17-22.2.0"),
             volumes: [{
-              hostPath: process.env.HOME + "/.m2/",
+              hostPath: os.homedir() + "/.m2/",
               containerPath: "/root/.m2/"
             }],
             user: "root",

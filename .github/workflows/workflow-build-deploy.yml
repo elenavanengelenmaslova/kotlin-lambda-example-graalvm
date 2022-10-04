@@ -3,18 +3,51 @@ name: Standard build deploy workflow for Kotlin Lambda GraalVM example
 on:
   workflow_call:
     inputs:
-      target_account:
-        required: true
+      aws_region:
+        required: false
         type: string
+        default: "eu-west-1"
+    secrets:
+      aws_account_id:
+        required: true
+      aws_access_key:
+        required: true
+      aws_secret_key:
+        required: true
 
 env:
   # Supply target AWS account here
-  DEPLOY_TARGET_ACCOUNT: ${{ inputs.target_account }}
+  DEPLOY_TARGET_ACCOUNT: ${{ secrets.aws_account_id }}
+  DEPLOY_TARGET_REGION: ${{ inputs.aws_region }}
 
 jobs:
+  deploy-table:
+    runs-on: ubuntu-latest
+    name: Table deploy
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key }}
+          aws-secret-access-key: ${{ secrets.aws_secret_key }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: DEPLOY synthesize & deploy
+        run: |
+          cd ${GITHUB_WORKSPACE}/infrastructure
+          npm install
+          npm run build
+          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-table --exclusively
+
   build-x86-app:
     runs-on: ubuntu-latest
     name: Kotlin GraalVM build
+    needs: [ deploy-table ]
 
     steps:
       - uses: actions/checkout@v2
@@ -27,16 +60,27 @@ jobs:
       - name: Build with Maven
         run: mvn clean install --file software/products/pom.xml -P native-image
 
-#      - name: DEPLOY synthesize & deploy
-#        run: |
-#          cd ${GITHUB_WORKSPACE}/infrastructure
-#          npm install
-#          npm run build
-#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key }}
+          aws-secret-access-key: ${{ secrets.aws_secret_key }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: DEPLOY synthesize & deploy
+        run: |
+          cd ${GITHUB_WORKSPACE}/infrastructure
+          npm install
+          npm run build
+          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 
   build-arm64-app:
     runs-on: self-hosted
     name: Kotlin GraalVM ARM64 build
+    needs: [ deploy-table ]
 
     steps:
       - uses: actions/checkout@v2
@@ -50,9 +94,19 @@ jobs:
       - name: Build with Maven
         run: mvn clean install --file software/products/pom.xml -P native-image
 
-#      - name: DEPLOY synthesize & deploy
-#        run: |
-#          cd ${GITHUB_WORKSPACE}/infrastructure
-#          npm install
-#          npm run build
-#          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key }}
+          aws-secret-access-key: ${{ secrets.aws_secret_key }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: DEPLOY synthesize & deploy
+        run: |
+          cd ${GITHUB_WORKSPACE}/infrastructure
+          npm install
+          npm run build
+          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example --exclusively
