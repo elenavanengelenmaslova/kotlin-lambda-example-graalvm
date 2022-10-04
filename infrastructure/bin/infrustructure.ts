@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import {App, Stack, Tags} from 'aws-cdk-lib';
 import {InfrastructureX86Stack} from '../lib/infrastructure-x86-stack';
 import {InfrastructureARM64Stack} from "../lib/infrastructure-arm64-stack";
+import {InfrastructureTableStack} from "../lib/infrastructure-table-stack";
 //import PermissionsBoundaryAspect from "../lib/permission-boundary-aspect";
 
 const app = new App();
@@ -11,18 +12,25 @@ const account_id = process.env.DEPLOY_TARGET_ACCOUNT;
 const region = process.env.DEPLOY_TARGET_REGION
 const environmentSettings = {account: account_id, region: region};
 
-const stackName = 'Kotlin-Lambda-GraalVM-example';
-const stack = new InfrastructureX86Stack(app, stackName, {
-  stackName: stackName,
+const stackNameTable = 'Kotlin-Lambda-GraalVM-table';
+const stackTable = new InfrastructureTableStack(app, stackNameTable, {
+  stackName: stackNameTable,
   env: environmentSettings,
-  description: 'Graal VM example',
+  description: 'Dynamo Table used for GraalVM example',
+});
+
+const stackNameX86 = 'Kotlin-Lambda-GraalVM-example';
+const stackX86 = new InfrastructureX86Stack(app, stackNameX86, {
+  stackName: stackNameX86,
+  env: environmentSettings,
+  description: 'GraalVM x86 example',
 });
 
 const stackNameARM64 = 'Kotlin-Lambda-GraalVM-ARM64-example';
 const stackARM64 = new InfrastructureARM64Stack(app, stackNameARM64, {
   stackName: stackNameARM64,
   env: environmentSettings,
-  description: 'Graal VM ARM64 example',
+  description: 'GraalVM ARM64 example',
 });
 
 // const permissionBoundary = new PermissionsBoundaryAspect(

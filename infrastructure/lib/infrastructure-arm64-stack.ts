@@ -4,7 +4,7 @@ import {
   aws_logs as logs,
   BundlingOutput,
   DockerImage,
-  Duration,
+  Duration, Fn,
   RemovalPolicy,
   Stack,
   StackProps
@@ -17,15 +17,7 @@ export class InfrastructureARM64Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-
-    const tableName = 'Products-GraalVM-ARM64-Example';
-    const productsTable = new dynamodb.Table(this, id, {
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: RemovalPolicy.DESTROY,
-      partitionKey: {name: 'id', type: dynamodb.AttributeType.STRING},
-      pointInTimeRecovery: false,
-      tableName: tableName,
-    });
+    const productsTable = dynamodb.Table.fromTableArn(this, 'dynamoTable', Fn.importValue('Products-GraalVM-ExampleTableArn'));
     const graalVMNativeLambdaArm64 = new lambda.Function(this, 'graalVMNativeLambdaExampleArm64', {
       description: 'Kotlin Lambda GraalVM Example Arm64',
       runtime: lambda.Runtime.PROVIDED_AL2,
