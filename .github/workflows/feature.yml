@@ -8,8 +8,6 @@ on:
 jobs:
   call-workflow-build-deploy:
     uses: ./.github/workflows/workflow-build-deploy.yml
-    with:
-      aws_region: "eu-west-1"
     secrets:
       aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
       aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}

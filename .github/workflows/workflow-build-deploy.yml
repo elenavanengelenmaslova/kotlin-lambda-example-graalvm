@@ -4,8 +4,9 @@ on:
   workflow_call:
     inputs:
       aws_region:
-        required: true
+        required: false
         type: string
+        default: "eu-west-1"
     secrets:
       aws_account_id:
         required: true
