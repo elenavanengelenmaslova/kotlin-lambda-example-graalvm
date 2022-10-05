@@ -1,17 +1,5 @@
-import {
-  aws_dynamodb as dynamodb,
-  aws_lambda as lambda,
-  aws_logs as logs,
-  BundlingOutput, CfnOutput,
-  DockerImage,
-  Duration,
-  RemovalPolicy,
-  Stack,
-  StackProps
-} from 'aws-cdk-lib';
+import {aws_dynamodb as dynamodb, CfnOutput, RemovalPolicy, Stack, StackProps} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import {Architecture} from "aws-cdk-lib/aws-lambda";
-import * as os from 'os';
 
 export class InfrastructureTableStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

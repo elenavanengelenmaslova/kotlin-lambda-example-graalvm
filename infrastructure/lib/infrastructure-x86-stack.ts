@@ -4,8 +4,8 @@ import {
   aws_logs as logs,
   BundlingOutput,
   DockerImage,
-  Duration, Fn,
-  RemovalPolicy,
+  Duration,
+  Fn,
   Stack,
   StackProps
 } from 'aws-cdk-lib';
