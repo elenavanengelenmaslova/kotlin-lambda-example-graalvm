@@ -1,5 +1,5 @@
 # kotlin-lambda-graalvm-example
-Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Kambda on GraalVM. One on x86 ad one on ARM64. 
+Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Lambda on GraalVM. One on x86 ad one on ARM64. 
 To bundle the ARM64 lambda in CDK a GitHub self-hosted runner was used on Linux ARM64, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure
 
 ## Build & Deployment from local machine
