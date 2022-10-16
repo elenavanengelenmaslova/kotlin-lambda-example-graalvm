@@ -38,7 +38,7 @@ export class InfrastructureX86Stack extends Stack {
         }),
       handler: 'nl.vintik.sample.KotlinLambda::handleRequest',
       timeout: Duration.seconds(120),
-      memorySize: 2048,
+      memorySize: 512,
       environment: {},
       logRetention: logs.RetentionDays.ONE_DAY
     });

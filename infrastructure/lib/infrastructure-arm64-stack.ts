@@ -40,7 +40,7 @@ export class InfrastructureARM64Stack extends Stack {
       architecture: Architecture.ARM_64,
       handler: 'nl.vintik.sample.KotlinLambda::handleRequest',
       timeout: Duration.seconds(120),
-      memorySize: 2048,
+      memorySize: 512,
       environment: {},
       logRetention: logs.RetentionDays.ONE_DAY
     });
