@@ -22,9 +22,9 @@ env:
 
 jobs:
 
-  build-app:
+  test-app:
     runs-on: ubuntu-latest
-    name: Kotlin GraalVM build
+    name: Kotlin GraalVM build and test
 
     steps:
       - uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
 
   deploy-x86-app:
     runs-on: ubuntu-latest
-    name: Kotlin GraalVM build
+    name: Kotlin GraalVM deploy on x86
     needs: [ build-app, deploy-table ]
 
     steps:
@@ -86,7 +86,7 @@ jobs:
 
   deploy-arm64-app:
     runs-on: self-hosted
-    name: Kotlin GraalVM ARM64 build
+    name: Kotlin GraalVM deploy on ARM64
     needs: [ build-app, deploy-table ]
 
     steps:
