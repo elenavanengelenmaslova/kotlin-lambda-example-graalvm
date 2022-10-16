@@ -63,7 +63,7 @@ jobs:
   deploy-x86-app:
     runs-on: ubuntu-latest
     name: Kotlin GraalVM deploy on x86
-    needs: [ build-app, deploy-table ]
+    needs: [ test-app, deploy-table ]
 
     steps:
       - uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
   deploy-arm64-app:
     runs-on: self-hosted
     name: Kotlin GraalVM deploy on ARM64
-    needs: [ build-app, deploy-table ]
+    needs: [ test-app, deploy-table ]
 
     steps:
       - uses: actions/checkout@v2
