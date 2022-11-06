@@ -90,6 +90,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: stCarolas/setup-maven@v4.4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
