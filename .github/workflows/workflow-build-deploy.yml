@@ -100,6 +100,7 @@ jobs:
           aws-region: ${{ inputs.aws_region }}
 
       - name: DEPLOY synthesize & deploy
+        uses: stCarolas/setup-maven@v4.4
         run: |
           cd ${GITHUB_WORKSPACE}/infrastructure
           npm install -g aws-cdk
