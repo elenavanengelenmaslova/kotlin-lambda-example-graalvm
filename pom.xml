@@ -7,5 +7,10 @@
     <groupId>groupId</groupId>
     <artifactId>kotlin-lambda-graalvm-example</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>pom</packaging>
+    <name>Kotlin Lambda GraalVM Example</name>
+    <modules>
+        <module>infrastructure</module>
+        <module>software/products</module>
+    </modules>
 </project>
