@@ -1,5 +1,5 @@
 {
-  "app": "cd ../; ./gradlew -q --console=plain infrastructure:run",
+  "app": "mvn -e -q compile exec:java",
   "watch": {
     "include": [
       "**"
