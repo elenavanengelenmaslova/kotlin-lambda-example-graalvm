@@ -56,9 +56,8 @@ jobs:
       - name: DEPLOY synthesize & deploy
         run: |
           cd ${GITHUB_WORKSPACE}/infrastructure
-          npm install
-          npm run build
-          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-table --exclusively
+          npm install -g aws-cdk
+          cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-table --exclusively
 
   deploy-x86-app:
     runs-on: ubuntu-latest
@@ -80,9 +79,8 @@ jobs:
       - name: DEPLOY synthesize & deploy
         run: |
           cd ${GITHUB_WORKSPACE}/infrastructure
-          npm install
-          npm run build
-          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
+          npm install -g aws-cdk
+          cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 
   deploy-arm64-app:
     runs-on: self-hosted
@@ -91,6 +89,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: stCarolas/setup-maven@v4.4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          components: 'native-image'
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
@@ -104,6 +108,5 @@ jobs:
       - name: DEPLOY synthesize & deploy
         run: |
           cd ${GITHUB_WORKSPACE}/infrastructure
-          npm install
-          npm run build
-          npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example --exclusively
+          npm install -g aws-cdk
+          cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example --exclusively
