@@ -12,7 +12,7 @@ import software.constructs.Construct
 
 class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) : Stack(scope, id, props) {
     init {
-        val productsTable = Table.fromTableArn(this, "dynamoTable", Fn.importValue("Products-JVM-ExampleTableArn"))
+        val productsTable = Table.fromTableArn(this, "dynamoTable", Fn.importValue("Products-GraalVM-ExampleTableArn"))
 
         val functionOnePackagingInstructions: List<String> = listOf(
             "-c",
