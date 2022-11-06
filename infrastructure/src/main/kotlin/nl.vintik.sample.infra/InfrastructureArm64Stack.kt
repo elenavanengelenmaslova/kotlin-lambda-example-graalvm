@@ -13,29 +13,12 @@ import software.constructs.Construct
 class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) : Stack(scope, id, props) {
     init {
         val productsTable = Table.fromTableArn(this, "dynamoTable", Fn.importValue("Products-GraalVM-ExampleTableArn"))
-
         val functionOnePackagingInstructions: List<String> = listOf(
             "-c",
             "cd products " +
                     "&& mvn clean install -P native-image "
                     + "&& cp /asset-input/products/target/function.zip /asset-output/"
         )
-
-        val builderOptions: BundlingOptions = BundlingOptions.builder()
-            .command(functionOnePackagingInstructions)
-            .image(DockerImage.fromRegistry("marksailes/arm64-al2-graalvm:17-22.2.0"))
-            .volumes(
-                listOf(
-                    DockerVolume.builder()
-                        .hostPath(System.getProperty("user.home") + "/.m2/")
-                        .containerPath("/root/.m2/")
-                        .build()
-                )
-            )
-            .user("root")
-            .outputType(BundlingOutput.ARCHIVED)
-            .build()
-
         val function = Function.Builder.create(this, "graalVMNativeLambdaExampleArm64")
             .description("Kotlin Lambda GraalVM Example Arm64")
             .handler("nl.vintik.sample.KotlinLambda::handleRequest")
@@ -43,7 +26,22 @@ class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) 
             .code(
                 Code.fromAsset(
                     "../software/", AssetOptions.builder()
-                        .bundling(builderOptions)
+                        .bundling(
+                            BundlingOptions.builder()
+                                .command(functionOnePackagingInstructions)
+                                .image(DockerImage.fromRegistry("marksailes/arm64-al2-graalvm:17-22.2.0"))
+                                .volumes(
+                                    listOf(
+                                        DockerVolume.builder()
+                                            .hostPath(System.getProperty("user.home") + "/.m2/")
+                                            .containerPath("/root/.m2/")
+                                            .build()
+                                    )
+                                )
+                                .user("root")
+                                .outputType(BundlingOutput.ARCHIVED)
+                                .build()
+                        )
                         .build()
                 )
             )
