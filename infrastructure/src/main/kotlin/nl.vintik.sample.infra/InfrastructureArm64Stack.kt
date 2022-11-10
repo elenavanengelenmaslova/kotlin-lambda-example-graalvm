@@ -22,7 +22,7 @@ class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) 
         )
         val builderOptions: BundlingOptions = BundlingOptions.builder()
             .command(functionOnePackagingInstructions)
-            .image(DockerImage.fromRegistry("marksailes/arm64-al2-graalvm:17-22.2.0"))
+            .image(DockerImage.fromRegistry("marksailes/arm64-al2-graalvm:17-22.3.0"))
             .volumes(
                 listOf(
                     DockerVolume.builder()
