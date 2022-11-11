@@ -1,5 +1,6 @@
 # kotlin-lambda-graalvm-example
-Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Lambda on GraalVM. One on x86 and one on ARM64. 
+Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Lambda on GraalVM. One on x86 and one on ARM64. Additionally there is a stack for DynamoDB table.
+
 To bundle the ARM64 lambda in CDK a GitHub self-hosted runner was used on Linux ARM64, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure
 
 ## Build & Deployment from local machine
@@ -9,21 +10,20 @@ mvn clean install --file software/products/pom.xml
 ```
 ### Set up CDK deployment
 
-Set up npm:
+Install CDK (if you have not already):
 ```
-cd ${GITHUB_WORKSPACE}/infrastructure
-npm install
-npm run build
+npm install -g aws-cdk
 ```
 
 If you have not set up CDK in you AWS account yet, please run (replace variables in brackets with actual values):
 ```
-npx cdk bootstrap aws://[aws_account_id]/[aws_region]
+cdk bootstrap aws://[aws_account_id]/[aws_region]
 ```
 
 Now deploy the app:
 ```
-npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example
+cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-table --exclusively
+cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 ```
 
 for ARM64 example replace the above line with (needs ARM64 machine / self-hosted GitHub runner on ARM64):
