@@ -20,13 +20,16 @@ If you have not set up CDK in you AWS account yet, please run (replace variables
 cdk bootstrap aws://[aws_account_id]/[aws_region]
 ```
 
-Now deploy the app:
+Deploy table:
 ```
 cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-table --exclusively
+```
+Deploy the x86 app:
+```
 cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 ```
 
-for ARM64 example replace the above line with (needs ARM64 machine / self-hosted GitHub runner on ARM64):
+for ARM64 example replace the above line with (needs ARM64 machine):
 ```
 npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
 ```
@@ -39,3 +42,5 @@ AWS_ACCESS_KEY
 AWS_SECRET_KEY
 ```
 Update AWS region in `workflow-build-deploy.yml` in `.github` folder of the project
+
+Note: ARM64 variant needs self-hosted GitHub runner on ARM64. You can either set one up, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure, ot you can comment out or remove ARM64 variant from github actions.
