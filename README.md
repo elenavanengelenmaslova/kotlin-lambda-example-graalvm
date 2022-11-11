@@ -43,4 +43,4 @@ AWS_SECRET_KEY
 ```
 Update AWS region in `workflow-build-deploy.yml` in `.github` folder of the project
 
-Note: ARM64 variant needs self-hosted GitHub runner on ARM64. You can either set one up, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure, ot you can comment out or remove ARM64 variant from github actions.
+Note: ARM64 variant needs self-hosted GitHub runner on ARM64. You can either set one up, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure, or you can comment out / remove ARM64 variant from github actions.
