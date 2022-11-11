@@ -29,7 +29,7 @@ Deploy the x86 app:
 cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-example --exclusively
 ```
 
-for ARM64 example replace the above line with (needs ARM64 machine):
+Deploy the ARM64 example replace the above line with (needs ARM64 machine):
 ```
 npx cdk deploy -vv --require-approval never Kotlin-Lambda-GraalVM-ARM64-example
 ```
