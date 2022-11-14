@@ -35,7 +35,8 @@ class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) 
             .outputType(BundlingOutput.ARCHIVED)
             .build()
 
-        val function = Function.Builder.create(this, "graalVMNativeLambdaExampleArm64")
+        val functionId = "lambdaGraalVMArm64"
+        val function = Function.Builder.create(this, functionId)
             .description("Kotlin Lambda GraalVM Example Arm64")
             .handler("nl.vintik.sample.KotlinLambda::handleRequest")
             .runtime(Runtime.PROVIDED_AL2)
@@ -53,5 +54,13 @@ class InfrastructureArm64Stack(scope: Construct, id: String, props: StackProps) 
             .build()
 
         productsTable.grantReadData(function)
+
+        CfnOutput(
+            this, "${functionId}-fn-arn",
+            CfnOutputProps.builder()
+                .value(productsTable.tableArn)
+                .description("The arn of the $functionId function")
+                .exportName("${functionId}FnArn").build()
+        )
     }
 }
