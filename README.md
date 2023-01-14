@@ -1,5 +1,5 @@
 # kotlin-lambda-graalvm-example
-Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Lambda on GraalVM. One on x86 and one on ARM64. Additionally there is a stack for DynamoDB table.
+Kotlin Lambda GraalVM Example contains two CDK stacks of Kotlin Lambda on GraalVM. One on x86 and one on ARM64. Additionally there is a stack for DynamoDB table. Examples were used in the comparison BLOG of AWS Lambda Kotlin/Native(GraalVM) ARM64 vs. x86: https://medium.com/aws-tip/this-week-in-kotlin-on-aws-lambda-to-arm64-or-not-to-arm64-e970f97baef3
 
 To bundle the ARM64 lambda in CDK a GitHub self-hosted runner was used on Linux ARM64, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure
 
