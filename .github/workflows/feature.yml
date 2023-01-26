@@ -1,4 +1,4 @@
-name: Kotlin Lambda GraalVM Example CI/CD
+name: Kotlin Lambda GraalVM Example CI/CD Feature
 on:
   push:
     branches: [ feature-* ]
