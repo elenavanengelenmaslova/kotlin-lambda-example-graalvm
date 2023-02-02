@@ -43,6 +43,6 @@ AWS_SECRET_KEY
 ```
 Update AWS region in `workflow-build-deploy.yml` in `.github` folder of the project
 
-Note: ARM64 variant needs self-hosted GitHub runner on ARM64. You can either set one up, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure, or you can comment out / remove ARM64 variant from github actions.
+Note: ARM64 variant needs self-hosted GitHub runner on ARM64. You can either set one up, see https://blogs.oracle.com/cloud-infrastructure/post/announcing-github-actions-arm-runners-for-the-arm-compute-platform-on-oracle-cloud-infrastructure (or summary instruction below), or if you do not want to run on ARM64 architecture you can comment out / remove ARM64 variant from github actions of this project.
 
-To set up a self-hosted ARM64 runner go to https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-github-actions-runner/releases/download/orm-deploy/orm.zip and follow instructions on screen, you'll need an OCI account. For github runner token you can go to Actions-Runners on the left hand side menu of your GitHub repository and copy token from configure script.
+For ARM64 variant: As already mentioned in the above Blog from Oracle, you can set up a self-hosted ARM64 runner in OCI (free tier) by going to https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-github-actions-runner/releases/download/orm-deploy/orm.zip and follow instructions on screen, you'll need an OCI account. For github runner token you can go to Actions-Runners on the left hand side menu of your GitHub repository and copy token from configure script.
