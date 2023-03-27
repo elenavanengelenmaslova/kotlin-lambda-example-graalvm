@@ -8,11 +8,11 @@ import nl.vintik.sample.model.Product
 import nl.vintik.sample.util.logger
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbAsyncTable
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest
-import java.util.*
+import java.util.concurrent.ConcurrentLinkedQueue
 
 class ProductsService(private val productTable: DynamoDbAsyncTable<Product>) {
     suspend fun findAllProducts(): List<Product> {
-        val products = Collections.synchronizedList(mutableListOf<Product>())
+        val products = ConcurrentLinkedQueue<Product>()
 
         logger().info("Parallel scans set to : $parallelScanTotalSegments with page size $parallelScanPageSize")
 
@@ -33,7 +33,7 @@ class ProductsService(private val productTable: DynamoDbAsyncTable<Product>) {
         }
 
         logger().info("number of Product: ${products.size}")
-        return products
+        return products.toList()
     }
 
     companion object {
