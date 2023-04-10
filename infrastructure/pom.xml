@@ -10,8 +10,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk.version>2.0.0</cdk.version>
-        <kotlin.version>1.8.0</kotlin.version>
+        <cdk.version>2.69.0</cdk.version>
+        <kotlin.version>1.8.20</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>software.constructs</groupId>
             <artifactId>constructs</artifactId>
-            <version>10.0.0</version>
+            <version>10.1.280</version>
         </dependency>
     </dependencies>
 </project>
